@@ -1,0 +1,839 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+<title>&lt;span leaf=""&gt;&lt;span leaf=""&gt;&lt;span leaf=""&gt;&lt;span leaf=""&gt;&lt;span leaf=""&gt;一个项目教你自己搭建一个Claude Code Agent：AI 编程 Agent 的完整进阶指南&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+</title>
+<section style="background: linear-gradient(180deg, #0a1628 0%, #0d2137 50%, #0f2942 100%);min-height: 100vh;padding: 40px 20px;box-sizing: border-box;">
+  <section style="max-width: 700px;margin: 0 auto;background: linear-gradient(135deg, #0d1f35 0%, #0a1628 100%);border-radius: 16px;padding: 40px 30px;box-shadow: 0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05);border: 1px solid rgba(66, 160, 206, 0.15);">
+    <h1 style="color: #e8f4fc;font-size: 28px;font-weight: 700;margin: 0 0 20px 0;text-align: center;line-height: 1.5;text-shadow: 0 2px 8px rgba(66, 160, 206, 0.3);">
+      <span style="color: #5ba4e6;"><span leaf="">一个项目</span></span>
+      <span leaf="">教你自己搭建一个Claude Code Agent</span>
+    </h1>
+    <h2 style="color: #8cc8f0;font-size: 18px;font-weight: 400;margin: 0 0 30px 0;text-align: center;line-height: 1.6;">
+      <span leaf="">AI 编程 Agent 的完整进阶指南</span>
+    </h2>
+    <p style="color: #a8c8e4;font-size: 16px;line-height: 1.8;margin: 0 0 30px 0;text-align: justify;">
+      <span leaf="">今天给大家推荐一个非常硬核的开源项目——</span>
+      <strong style="color: #5ba4e6;"><span leaf="">learn-claude-code</span></strong>
+      <span leaf="">。</span>
+    </p>
+    <p style="color: #a8c8e4;font-size: 16px;line-height: 1.8;margin: 0 0 30px 0;text-align: justify;">
+      <span leaf="">这个开源项目总共有</span>
+      <strong style="color: #e8f4fc;"><span leaf="">12节</span></strong>
+      <span leaf="">，每一节只引入一个核心概念，并配套：Python 实现、对应文档。通过学习这个项目，你可以</span>
+      <strong style="color: #5ba4e6;"><span leaf="">从根本上理解 AI 编程 Agent 是怎么工作的</span></strong>
+      <span leaf="">。</span>
+    </p>
+    <p style="color: #a8c8e4;font-size: 16px;line-height: 1.8;margin: 0 0 30px 0;text-align: justify;">
+      <span leaf="">从这个项目中，你能学到 Claude Code 的很多核心理念，比如什么是 Agent，Claude Code 的产品理念认为：</span>
+      <strong style="color: #5ba4e6;"><span leaf="">一个循环 + Bash 工具可以构建任意复杂的 Agent</span></strong>
+      <span leaf="">：</span>
+    </p>
+    <blockquote style="background: rgba(66, 160, 206, 0.08);border-left: 4px solid #42a0ce;padding: 16px 20px;margin: 0 0 30px 0;border-radius: 0 8px 8px 0;">
+      <p style="color: #8cc8f0;font-size: 15px;font-style: italic;margin: 0;line-height: 1.7;">
+        <span leaf="">"</span>
+        <span style="color: #5ba4e6;"><span leaf="">One loop &amp; Bash is all you need</span></span>
+        <span leaf="">" — one tool + one loop = an agent.</span>
+      </p>
+    </blockquote>
+    <p style="color: #a8c8e4;font-size: 16px;line-height: 1.8;margin: 0 0 30px 0;text-align: justify;">
+      <span leaf="">比如，Claude Code 是如何理解 Agent 的演进方向，并付诸实践的：</span>
+    </p>
+    <h2 style="color: #5ba4e6;font-size: 22px;font-weight: 600;margin: 40px 0 24px 0;padding-bottom: 12px;border-bottom: 1px solid rgba(91, 164, 230, 0.3);text-shadow: 0 2px 6px rgba(66, 160, 206, 0.2);">
+      <span leaf="">课程内容详解</span>
+    </h2>
+    <h3 style="color: #8cc8f0;font-size: 18px;font-weight: 600;margin: 32px 0 16px 0;">
+      <span style="display: inline-block;width: 28px;height: 28px;background: linear-gradient(135deg, #1a3a5c, #2a5490);border-radius: 6px;text-align: center;line-height: 28px;margin-right: 10px;font-size: 14px;color: #fff;"><span leaf="">S01</span></span>
+      <span leaf="">最小Agent循环 — 万物之始</span>
+    </h3>
+    <p style="color: #a8c8e4;font-size: 15px;line-height: 1.8;margin: 0 0 16px 0;text-align: justify;">
+      <span leaf="">第一节教你基础 LLM 调用 + 工具调用 bash + 循环执行，构建一个最小 Agent 循环，类似于 ReAct Agent 这个概念。</span>
+    </p>
+    <p style="color: #e8f4fc;font-size: 15px;line-height: 1.8;margin: 0 0 16px 0;">
+      <strong><span leaf="">核心理念：</span></strong>
+      <span leaf="">一个退出条件控制整个流程。循环持续运行，直到模型不再调用工具。</span>
+    </p>
+    <p style="color: #a8c8e4;font-size: 15px;line-height: 1.8;margin: 0 0 20px 0;">
+      <span leaf="">这是最原始的 Agent 形态，代码量很少，但已经具备了 Agent 的核心特征：</span>
+    </p>
+    <ul style="color: #a8c8e4;font-size: 15px;line-height: 1.9;margin: 0 0 30px 0;padding-left: 20px;" class="list-paddingleft-1">
+      <li style="margin-bottom: 8px;">
+        <section>
+          <span leaf="">能调用 LLM</span>
+        </section>
+      </li>
+      <li style="margin-bottom: 8px;">
+        <section>
+          <span leaf="">能执行工具（bash 命令）</span>
+        </section>
+      </li>
+      <li>
+        <section>
+          <span leaf="">能自主循环直到完成任务</span>
+        </section>
+      </li>
+    </ul>
+    <h3 style="color: #8cc8f0;font-size: 18px;font-weight: 600;margin: 32px 0 16px 0;">
+      <span style="display: inline-block;width: 28px;height: 28px;background: linear-gradient(135deg, #1a3a5c, #2a5490);border-radius: 6px;text-align: center;line-height: 28px;margin-right: 10px;font-size: 14px;color: #fff;"><span leaf="">S02</span></span>
+      <span leaf="">安全机制 — 给Agent装上护栏</span>
+    </h3>
+    <p style="color: #a8c8e4;font-size: 15px;line-height: 1.8;margin: 0 0 16px 0;text-align: justify;">
+      <span leaf="">在第一节的基础上，第二节给 Agent 配置了</span>
+      <strong style="color: #5ba4e6;"><span leaf="">多个工具</span></strong>
+      <span leaf="">，并引入了</span>
+      <strong style="color: #5ba4e6;"><span leaf="">安全机制（Safety）</span></strong>
+      <span leaf="">。</span>
+    </p>
+    <p style="color: #a8c8e4;font-size: 15px;line-height: 1.8;margin: 0 0 16px 0;">
+      <span leaf="">从 S01 到 S02 的升级：</span>
+    </p>
+    <ul style="color: #a8c8e4;font-size: 15px;line-height: 1.9;margin: 0 0 20px 0;padding-left: 20px;" class="list-paddingleft-1">
+      <li style="margin-bottom: 8px;">
+        <strong><span leaf="">S01</span></strong>
+        <section>
+          <span leaf="">：1个工具，无安全机制 → Agent 感觉"脆弱"，什么都能做</span>
+        </section>
+      </li>
+      <li>
+        <strong><span leaf="">S02</span></strong>
+        <section>
+          <span leaf="">：4个工具（Edit、Read、Bash、Write）+ 安全机制 → Agent 感觉"被保护"</span>
+        </section>
+      </li>
+    </ul>
+    <p style="color: #e8f4fc;font-size: 15px;line-height: 1.8;margin: 0 0 12px 0;">
+      <strong><span leaf="">关键概念：</span></strong>
+    </p>
+    <ul style="color: #a8c8e4;font-size: 15px;line-height: 1.9;margin: 0 0 30px 0;padding-left: 20px;" class="list-paddingleft-1">
+      <li style="margin-bottom: 8px;">
+        <strong><span leaf="">沙盒（Sandbox）</span></strong>
+        <section>
+          <span leaf="">：限制 Agent 的执行范围</span>
+        </section>
+      </li>
+      <li>
+        <strong><span leaf="">安全路径（Safe Path）</span></strong>
+        <section>
+          <span leaf="">：只允许在特定目录下操作</span>
+        </section>
+      </li>
+    </ul>
+    <section style="text-align: center;margin: 30px 0;">
+      <span leaf=""><img data-src="https://mmbiz.qlogo.cn/mmbiz_png/Mm8ujthoicmicaRN7oLk6NNK9h4ic2RogJ98TibgNystq8UVHhELvSFP5f8QibC38Yo7oCph6TM9ibcySnBXROqJWO8B0Y6aTxY54oGZhGEC84D3k/0?wx_fmt=png&amp;from=appmsg" alt="S02" class="rich_pages wxw-img" data-ratio="0.5581395348837209" data-type="png" data-w="1376" style="max-width: 100%;height: auto;border-radius: 8px;box-shadow: 0 4px 16px rgba(0,0,0,0.3);" data-imgfileid="100000064" data-imgqrcoded="1" data-aistatus="1" src="https://mmbiz.qlogo.cn/mmbiz_png/Mm8ujthoicmicaRN7oLk6NNK9h4ic2RogJ98TibgNystq8UVHhELvSFP5f8QibC38Yo7oCph6TM9ibcySnBXROqJWO8B0Y6aTxY54oGZhGEC84D3k/0?wx_fmt=png&amp;from=appmsg"></span>
+    </section>
+    <h3 style="color: #8cc8f0;font-size: 18px;font-weight: 600;margin: 32px 0 16px 0;">
+      <span style="display: inline-block;width: 28px;height: 28px;background: linear-gradient(135deg, #1a3a5c, #2a5490);border-radius: 6px;text-align: center;line-height: 28px;margin-right: 10px;font-size: 14px;color: #fff;"><span leaf="">S03</span></span>
+      <span leaf="">TodoManager — Agent的记忆辅助器</span>
+    </h3>
+    <p style="color: #a8c8e4;font-size: 15px;line-height: 1.8;margin: 0 0 16px 0;text-align: justify;">
+      <span leaf="">第三节提出了</span>
+      <strong style="color: #5ba4e6;"><span leaf="">TodoManager</span></strong>
+      <span leaf="">这个概念。</span>
+      <strong style="color: #5ba4e6;"><span leaf="">TodoManager 本质</span></strong>
+      <span leaf="">：Agent 的"记忆辅助器"。</span>
+    </p>
+    <p style="color: #e8f4fc;font-size: 15px;line-height: 1.8;margin: 0 0 12px 0;">
+      <strong><span leaf="">解决的问题：</span></strong>
+    </p>
+    <ul style="color: #a8c8e4;font-size: 15px;line-height: 1.9;margin: 0 0 16px 0;padding-left: 20px;" class="list-paddingleft-1">
+      <li style="margin-bottom: 8px;">
+        <section>
+          <span leaf="">之前（S02）：简单分发，Agent 容易"忘记"自己在做什么</span>
+        </section>
+      </li>
+      <li>
+        <section>
+          <span leaf="">之后（S03）：带状态跟踪，通过</span>
+          <code style="background: rgba(91, 164, 230, 0.15);padding: 2px 6px;border-radius: 4px;font-family: monospace;font-size: 13px;color: #5ba4e6;"><span leaf="">ROUNDS_SINCE_TODO</span></code>
+          <span leaf="">计数器持续追踪</span>
+        </section>
+      </li>
+    </ul>
+    <p style="color: #e8f4fc;font-size: 15px;line-height: 1.8;margin: 0 0 12px 0;">
+      <strong><span leaf="">工作原理：</span></strong>
+    </p>
+    <ol style="color: #a8c8e4;font-size: 15px;line-height: 1.9;margin: 0 0 30px 0;padding-left: 20px;" class="list-paddingleft-1">
+      <li style="margin-bottom: 8px;">
+        <section>
+          <span leaf="">强制性的状态更新</span>
+        </section>
+      </li>
+      <li style="margin-bottom: 8px;">
+        <section>
+          <span leaf="">确保 Agent 在处理复杂任务时不会迷失方向</span>
+        </section>
+      </li>
+      <li>
+        <section>
+          <span leaf="">向用户清晰地展示工作计划和进度</span>
+        </section>
+      </li>
+    </ol>
+    <section style="text-align: center;margin: 30px 0;">
+      <span leaf=""><img data-src="https://mmbiz.qlogo.cn/mmbiz_png/Mm8ujthoicm9AMeTg3yticc24FK9DicTHWb6gRL5WC42uMz0MV6uLIAdAwJZIHDtqjtQGdxOsMp125icOhmcfcTWCrI5wd2msQ7aiaDVgLxyfIFY/0?wx_fmt=png&amp;from=appmsg" alt="S03" class="rich_pages wxw-img" data-ratio="0.5581395348837209" data-type="png" data-w="1376" style="max-width: 100%;height: auto;border-radius: 8px;box-shadow: 0 4px 16px rgba(0,0,0,0.3);" data-imgfileid="100000066" data-imgqrcoded="1" data-aistatus="1" src="https://mmbiz.qlogo.cn/mmbiz_png/Mm8ujthoicm9AMeTg3yticc24FK9DicTHWb6gRL5WC42uMz0MV6uLIAdAwJZIHDtqjtQGdxOsMp125icOhmcfcTWCrI5wd2msQ7aiaDVgLxyfIFY/0?wx_fmt=png&amp;from=appmsg"></span>
+    </section>
+    <h3 style="color: #8cc8f0;font-size: 18px;font-weight: 600;margin: 32px 0 16px 0;">
+      <span style="display: inline-block;width: 28px;height: 28px;background: linear-gradient(135deg, #1a3a5c, #2a5490);border-radius: 6px;text-align: center;line-height: 28px;margin-right: 10px;font-size: 14px;color: #fff;"><span leaf="">S04</span></span>
+      <span leaf="">子Agent（Subagent）— 任务分身术</span>
+    </h3>
+    <p style="color: #a8c8e4;font-size: 15px;line-height: 1.8;margin: 0 0 16px 0;text-align: justify;">
+      <span leaf="">该模式的核心理念是 "</span>
+      <strong style="color: #5ba4e6;"><span leaf="">通过进程隔离实现上下文隔离</span></strong>
+      <span leaf="">" (Process isolation gives context isolation for free) 。</span>
+    </p>
+    <p style="color: #a8c8e4;font-size: 15px;line-height: 1.8;margin: 0 0 20px 0;text-align: justify;">
+      <span leaf="">这种模式通过引入 Subagent (子代理) 机制，解决了长对话中常见的"上下文污染"和"Token 浪费"问题。以下是该模式的核心要点：</span>
+    </p>
+    <ul style="color: #a8c8e4;font-size: 15px;line-height: 1.9;margin: 0 0 20px 0;padding-left: 20px;" class="list-paddingleft-1">
+      <li style="margin-bottom: 8px;">
+        <section>
+          <span leaf="">当父代理 (Parent Agent) 遇到复杂子任务或需要大量文件探索时，它不会直接在当前对话中进行。而是交给子 Agent，子 Agent 在执行过程中产生的数百行日志、中间搜索结果等冗余信息，都被限制在子代理的生命周期内。</span>
+        </section>
+      </li>
+      <li style="margin-bottom: 8px;">
+        <section>
+          <span leaf="">在子 Agent 执行完毕后，它只向父代理返回最终的总结文字，而不返回执行过程中的工具调用细节。父代理的上下文保持干净、简洁，只保留关键结论，从而节省了大量的 Token，并防止模型被无关细节干扰。</span>
+        </section>
+      </li>
+      <li>
+        <section>
+          <span leaf="">在代码中可以看到，</span>
+          <code style="background: rgba(91, 164, 230, 0.15);padding: 2px 6px;border-radius: 4px;font-family: monospace;font-size: 13px;color: #5ba4e6;"><span leaf="">CHILD_TOOLS</span></code>
+          <span leaf="">移除了 task 工具。这意味着子代理不能再派生子代理，从而避免了无限递归和难以调试的调用链。</span>
+        </section>
+      </li>
+    </ul>
+    <p style="color: #e8f4fc;font-size: 15px;line-height: 1.8;margin: 0 0 12px 0;">
+      <strong><span leaf="">关键机制：</span></strong>
+    </p>
+    <ul style="color: #a8c8e4;font-size: 15px;line-height: 1.9;margin: 0 0 30px 0;padding-left: 20px;" class="list-paddingleft-1">
+      <li style="margin-bottom: 8px;">
+        <strong><span leaf="">父 Agent</span></strong>
+        <section>
+          <span leaf="">：负责调度和协调</span>
+        </section>
+      </li>
+      <li style="margin-bottom: 8px;">
+        <strong><span leaf="">子 Agent</span></strong>
+        <section>
+          <span leaf="">：负责执行具体任务</span>
+        </section>
+      </li>
+      <li style="margin-bottom: 8px;">
+        <strong><span leaf="">上下文传递</span></strong>
+        <section>
+          <span leaf="">：父 Agent 向子 Agent 传递必要的上下文</span>
+        </section>
+      </li>
+      <li>
+        <strong><span leaf="">结果返回</span></strong>
+        <section>
+          <span leaf="">：子 Agent 执行完毕后返回摘要给父 Agent</span>
+        </section>
+      </li>
+    </ul>
+    <section style="text-align: center;margin: 30px 0;">
+      <span leaf=""><img data-src="https://mmbiz.qlogo.cn/sz_mmbiz_png/Mm8ujthoicmibVBGrCKP5RhUT7Kxxl6CoKKt2spc5hy0BSv6hKYPf61bCyH3F4Q09Aib7pLJa4vPRzadsibPmFfibDrSUiaWO23eO196YZjRa25FY/0?wx_fmt=png&amp;from=appmsg" alt="S04" class="rich_pages wxw-img" data-ratio="0.5581395348837209" data-type="png" data-w="2752" style="max-width: 100%;height: auto;border-radius: 8px;box-shadow: 0 4px 16px rgba(0,0,0,0.3);" data-imgfileid="100000068" data-imgqrcoded="1" data-aistatus="1" src="https://mmbiz.qlogo.cn/sz_mmbiz_png/Mm8ujthoicmibVBGrCKP5RhUT7Kxxl6CoKKt2spc5hy0BSv6hKYPf61bCyH3F4Q09Aib7pLJa4vPRzadsibPmFfibDrSUiaWO23eO196YZjRa25FY/0?wx_fmt=png&amp;from=appmsg"></span>
+    </section>
+    <h3 style="color: #8cc8f0;font-size: 18px;font-weight: 600;margin: 32px 0 16px 0;">
+      <span style="display: inline-block;width: 28px;height: 28px;background: linear-gradient(135deg, #1a3a5c, #2a5490);border-radius: 6px;text-align: center;line-height: 28px;margin-right: 10px;font-size: 14px;color: #fff;"><span leaf="">S05</span></span>
+      <span leaf="">Skills系统 — 能力扩展库</span>
+    </h3>
+    <p style="color: #a8c8e4;font-size: 15px;line-height: 1.8;margin: 0 0 16px 0;text-align: justify;">
+      <span leaf="">第五节引入了</span>
+      <strong style="color: #5ba4e6;"><span leaf="">Skills系统</span></strong>
+      <span leaf="">，让 Agent 的能力可以灵活扩展。</span>
+    </p>
+    <p style="color: #a8c8e4;font-size: 15px;line-height: 1.8;margin: 0 0 20px 0;text-align: justify;">
+      <span leaf="">这个模式的核心理念是 "</span>
+      <strong style="color: #5ba4e6;"><span leaf="">按需加载，避免臃肿的系统提示</span></strong>
+      <span leaf="">" (Don't put everything in the system prompt. Load on demand.) 。</span>
+    </p>
+    <p style="color: #a8c8e4;font-size: 15px;line-height: 1.8;margin: 0 0 20px 0;text-align: justify;">
+      <span leaf="">它通过一种巧妙的</span>
+      <strong style="color: #5ba4e6;"><span leaf="">两层技能注入</span></strong>
+      <span leaf="">(Two-layer skill injection) 机制，解决了在 System Prompt 中塞入过多指令会导致 Token 成本高昂和上下文混乱的问题。</span>
+    </p>
+    <p style="color: #a8c8e4;font-size: 15px;line-height: 1.8;margin: 0 0 20px 0;text-align: justify;">
+      <span leaf="">在程序启动时，SkillLoader 会扫描</span>
+      <code style="background: rgba(91, 164, 230, 0.15);padding: 2px 6px;border-radius: 4px;font-family: monospace;font-size: 13px;color: #5ba4e6;"><span leaf="">skills/</span></code>
+      <span leaf="">目录下的所有</span>
+      <code style="background: rgba(91, 164, 230, 0.15);padding: 2px 6px;border-radius: 4px;font-family: monospace;font-size: 13px;color: #5ba4e6;"><span leaf="">SKILL.md</span></code>
+      <span leaf="">文件，只提取每个技能的</span>
+      <strong><span leaf="">名称和简短描述</span></strong>
+      <span leaf="">，这些简短的描述被整合到 SYSTEM 提示中，作为给 AI 的一个"技能菜单"；这一步非常"便宜"，每个技能只占用少量 Token，让 AI 知道"我有哪些可用的高级能"，而不会被细节淹没。</span>
+    </p>
+    <p style="color: #a8c8e4;font-size: 15px;line-height: 1.8;margin: 0 0 30px 0;text-align: justify;">
+      <span leaf="">当 AI 认为需要使用某个特定技能来解决问题时（例如，处理 PDF 文件），AI 会调用一个名为</span>
+      <code style="background: rgba(91, 164, 230, 0.15);padding: 2px 6px;border-radius: 4px;font-family: monospace;font-size: 13px;color: #5ba4e6;"><span leaf="">load_skill</span></code>
+      <span leaf="">的工具，会读取对应</span>
+      <code style="background: rgba(91, 164, 230, 0.15);padding: 2px 6px;border-radius: 4px;font-family: monospace;font-size: 13px;color: #5ba4e6;"><span leaf="">SKILL.md</span></code>
+      <span leaf="">文件的</span>
+      <strong><span leaf="">完整内容</span></strong>
+      <span leaf="">（即详细的步骤和指令）。这样，只有在需要时，AI 才会接收到完整的、详细的指令。这保证了上下文的清洁，并极大地节省了 Token。</span>
+    </p>
+    <p style="color: #e8f4fc;font-size: 15px;line-height: 1.8;margin: 0 0 12px 0;">
+      <strong><span leaf="">Skills 的优势：</span></strong>
+    </p>
+    <ul style="color: #a8c8e4;font-size: 15px;line-height: 1.9;margin: 0 0 30px 0;padding-left: 20px;" class="list-paddingleft-1">
+      <li style="margin-bottom: 8px;">
+        <strong><span leaf="">模块化</span></strong>
+        <section>
+          <span leaf="">：每个 Skill 是一个独立的</span>
+          <code style="background: rgba(91, 164, 230, 0.15);padding: 2px 6px;border-radius: 4px;font-family: monospace;font-size: 13px;color: #5ba4e6;"><span leaf="">.md</span></code>
+          <span leaf="">文件</span>
+        </section>
+      </li>
+      <li style="margin-bottom: 8px;">
+        <strong><span leaf="">可插拔</span></strong>
+        <section>
+          <span leaf="">：按需加载特定能力</span>
+        </section>
+      </li>
+      <li>
+        <strong><span leaf="">可扩展</span></strong>
+        <section>
+          <span leaf="">：用户可以自定义 Skills</span>
+        </section>
+      </li>
+    </ul>
+    <section style="text-align: center;margin: 30px 0;">
+      <span leaf=""><img data-src="https://mmbiz.qlogo.cn/mmbiz_png/Mm8ujthoicmibfmHCVUuTQOFbibcPIrmxatnf9FA0jSIwgYe5GRpleoLJeyI9MvW4usekqBe8kEVfurtiaq38t8CS9rTBU0jw3Libx3eo5YhTKu4/0?wx_fmt=png&amp;from=appmsg" alt="S05" class="rich_pages wxw-img" data-ratio="0.5581395348837209" data-type="png" data-w="2752" style="max-width: 100%;height: auto;border-radius: 8px;box-shadow: 0 4px 16px rgba(0,0,0,0.3);" data-imgfileid="100000067" data-imgqrcoded="1" data-aistatus="1" src="https://mmbiz.qlogo.cn/mmbiz_png/Mm8ujthoicmibfmHCVUuTQOFbibcPIrmxatnf9FA0jSIwgYe5GRpleoLJeyI9MvW4usekqBe8kEVfurtiaq38t8CS9rTBU0jw3Libx3eo5YhTKu4/0?wx_fmt=png&amp;from=appmsg"></span>
+    </section>
+    <h3 style="color: #8cc8f0;font-size: 18px;font-weight: 600;margin: 32px 0 16px 0;">
+      <span style="display: inline-block;width: 28px;height: 28px;background: linear-gradient(135deg, #1a3a5c, #2a5490);border-radius: 6px;text-align: center;line-height: 28px;margin-right: 10px;font-size: 14px;color: #fff;"><span leaf="">S06</span></span>
+      <span leaf="">上下文压缩 — 突破Token限制</span>
+    </h3>
+    <p style="color: #a8c8e4;font-size: 15px;line-height: 1.8;margin: 0 0 16px 0;text-align: justify;">
+      <span leaf="">第六节解决了 Agent 的"记忆容量"问题。</span>
+    </p>
+    <p style="color: #a8c8e4;font-size: 15px;line-height: 1.8;margin: 0 0 20px 0;text-align: justify;">
+      <span leaf="">模式的核心理念是</span>
+      <strong style="color: #5ba4e6;"><span leaf="">"策略性遗忘以实现无限工作流"</span></strong>
+      <span leaf="">(The agent can forget strategically and keep working forever) 。该模式通过一个</span>
+      <strong style="color: #5ba4e6;"><span leaf="">三层压缩流水线</span></strong>
+      <span leaf="">(Three-layer compression pipeline) ，解决了长对话中 Token 堆积导致的上下文溢出、性能下降和成本激增问题。</span>
+    </p>
+    <p style="color: #e8f4fc;font-size: 15px;line-height: 1.8;margin: 0 0 12px 0;">
+      <strong><span leaf="">三层压缩设计十分精妙：</span></strong>
+    </p>
+    <section style="background: rgba(66, 160, 206, 0.08);border-radius: 8px;padding: 16px;margin: 0 0 20px 0;">
+      <p style="color: #5ba4e6;font-size: 15px;font-weight: 600;margin: 0 0 8px 0;">
+        <span leaf="">1. 微压缩 (Layer 1: micro_compact)</span>
+      </p>
+      <p style="color: #a8c8e4;font-size: 14px;line-height: 1.7;margin: 0 0 8px 0;">
+        <strong><span leaf="">触发时机</span></strong>
+        <span leaf="">：每一轮对话执行前。</span>
+      </p>
+      <p style="color: #a8c8e4;font-size: 14px;line-height: 1.7;margin: 0 0 8px 0;">
+        <strong><span leaf="">操作内容</span></strong>
+        <span leaf="">：micro_compact 会保留最近的 3 条工具调用结果，而将更早的结果内容替换为占位符（如 [Previous: used read_file] ）。</span>
+      </p>
+      <p style="color: #a8c8e4;font-size: 14px;line-height: 1.7;margin: 0;">
+        <strong><span leaf="">核心价值</span></strong>
+        <span leaf="">：静默地清理掉不再需要的中间细节（如长达数千行的文件读取内容），同时保留操作历史的痕迹，确保上下文的高密度。</span>
+      </p>
+    </section>
+    <section style="background: rgba(66, 160, 206, 0.08);border-radius: 8px;padding: 16px;margin: 0 0 20px 0;">
+      <p style="color: #5ba4e6;font-size: 15px;font-weight: 600;margin: 0 0 8px 0;">
+        <span leaf="">2. 自动摘要压缩 (Layer 2: auto_compact)</span>
+      </p>
+      <p style="color: #a8c8e4;font-size: 14px;line-height: 1.7;margin: 0 0 8px 0;">
+        <strong><span leaf="">触发时机</span></strong>
+        <span leaf="">：当估计的 Token 数量超过阈值（如 50,000）时。</span>
+      </p>
+      <p style="color: #a8c8e4;font-size: 14px;line-height: 1.7;margin: 0 0 8px 0;">
+        <strong><span leaf="">操作内容</span></strong>
+        <span leaf="">：</span>
+      </p>
+      <ol style="color: #a8c8e4;font-size: 14px;line-height: 1.8;margin: 0 0 8px 0;padding-left: 16px;" class="list-paddingleft-1">
+        <li style="margin-bottom: 4px;">
+          <section>
+            <span leaf="">将完整的对话历史持久化到</span>
+            <code style="background: rgba(91, 164, 230, 0.15);padding: 1px 4px;border-radius: 3px;font-family: monospace;font-size: 12px;color: #5ba4e6;"><span leaf="">.transcripts/</span></code>
+            <span leaf="">目录。</span>
+          </section>
+        </li>
+        <li style="margin-bottom: 4px;">
+          <section>
+            <span leaf="">请求 LLM 对当前对话进行高保真摘要（包括已完成的工作、当前状态、关键决策）。</span>
+          </section>
+        </li>
+        <li>
+          <section>
+            <span leaf="">用这一条摘要消息替换之前的所有历史消息。</span>
+          </section>
+        </li>
+      </ol>
+      <p style="color: #a8c8e4;font-size: 14px;line-height: 1.7;margin: 0;">
+        <strong><span leaf="">核心价值</span></strong>
+        <span leaf="">：在不丢失关键进度的前提下，瞬间释放 90% 以上的上下文空间，使 Agent 能够"重获新生"继续工作。</span>
+      </p>
+    </section>
+    <section style="background: rgba(66, 160, 206, 0.08);border-radius: 8px;padding: 16px;margin: 0 0 20px 0;">
+      <p style="color: #5ba4e6;font-size: 15px;font-weight: 600;margin: 0 0 8px 0;">
+        <span leaf="">3. 手动触发压缩 (Layer 3: compact tool)</span>
+      </p>
+      <p style="color: #a8c8e4;font-size: 14px;line-height: 1.7;margin: 0 0 8px 0;">
+        <strong><span leaf="">触发时机</span></strong>
+        <span leaf="">：AI 意识到当前上下文过于杂乱，主动调用 compact 工具。</span>
+      </p>
+      <p style="color: #a8c8e4;font-size: 14px;line-height: 1.7;margin: 0 0 8px 0;">
+        <strong><span leaf="">操作内容</span></strong>
+        <span leaf="">：通过 PARENT_TOOLS 暴露给 AI，其执行逻辑与 auto_compact 相同。</span>
+      </p>
+      <p style="color: #a8c8e4;font-size: 14px;line-height: 1.7;margin: 0;">
+        <strong><span leaf="">核心价值</span></strong>
+        <span leaf="">：赋予 AI 自我管理上下文的能力，让它在处理特别复杂的逻辑切换时能主动"整理思绪"。</span>
+      </p>
+    </section>
+    <p style="color: #a8c8e4;font-size: 15px;line-height: 1.8;margin: 0 0 20px 0;text-align: justify;">
+      <span leaf="">这个模式将上下文管理从"被动溢出"转变为"主动治理"。它建立了一个</span>
+      <strong style="color: #5ba4e6;"><span leaf="">"内存 vs 磁盘"</span></strong>
+      <span leaf="">的机制：</span>
+    </p>
+    <ul style="color: #a8c8e4;font-size: 15px;line-height: 1.9;margin: 0 0 30px 0;padding-left: 20px;" class="list-paddingleft-1">
+      <li style="margin-bottom: 8px;">
+        <strong><span leaf="">内存</span></strong>
+        <section>
+          <span leaf="">(Context Window)：只保留精简后的摘要和最近的细节。</span>
+        </section>
+      </li>
+      <li>
+        <strong><span leaf="">磁盘</span></strong>
+        <section>
+          <span leaf="">(</span>
+          <code style="background: rgba(91, 164, 230, 0.15);padding: 2px 6px;border-radius: 4px;font-family: monospace;font-size: 13px;color: #5ba4e6;"><span leaf="">.transcripts/</span></code>
+          <span leaf="">)：保留完整的操作日志供人类回溯。</span>
+        </section>
+      </li>
+    </ul>
+    <p style="color: #a8c8e4;font-size: 15px;line-height: 1.8;margin: 0 0 30px 0;text-align: justify;">
+      <span leaf="">这种设计使得 Agent 能够处理理论上无限长度的任务，这让 Agent 能处理更长时间的任务，不会因为"记忆"满了而卡住。</span>
+    </p>
+    <section style="text-align: center;margin: 30px 0;">
+      <span leaf=""><img data-src="https://mmbiz.qlogo.cn/mmbiz_png/Mm8ujthoicmibpEnrT6SDyg2w9jic4PSoLgopEHj6KpmSx8sybDDfNCFAPksM3t2ianBiatWn6LibaZRiaruKVwyU3xwurO4BygYXWvFG5gXppFj30/0?wx_fmt=png&amp;from=appmsg" alt="S06" class="rich_pages wxw-img" data-ratio="0.5581395348837209" data-type="png" data-w="1376" style="max-width: 100%;height: auto;border-radius: 8px;box-shadow: 0 4px 16px rgba(0,0,0,0.3);" data-imgfileid="100000065" data-imgqrcoded="1" data-aistatus="1" src="https://mmbiz.qlogo.cn/mmbiz_png/Mm8ujthoicmibpEnrT6SDyg2w9jic4PSoLgopEHj6KpmSx8sybDDfNCFAPksM3t2ianBiatWn6LibaZRiaruKVwyU3xwurO4BygYXWvFG5gXppFj30/0?wx_fmt=png&amp;from=appmsg"></span>
+    </section>
+    <h3 style="color: #8cc8f0;font-size: 18px;font-weight: 600;margin: 32px 0 16px 0;">
+      <span style="display: inline-block;width: 28px;height: 28px;background: linear-gradient(135deg, #1a3a5c, #2a5490);border-radius: 6px;text-align: center;line-height: 28px;margin-right: 10px;font-size: 14px;color: #fff;"><span leaf="">S07</span></span>
+      <span leaf="">任务图与依赖关系 — 结构化管理</span>
+    </h3>
+    <p style="color: #a8c8e4;font-size: 15px;line-height: 1.8;margin: 0 0 16px 0;text-align: justify;">
+      <span leaf="">第七节将任务管理从"平铺列表"升级为"有向图"。模式的核心理念是</span>
+      <strong style="color: #5ba4e6;"><span leaf="">"独立于对话之外的持久化状态"</span></strong>
+      <span leaf="">(State that survives compression -- because it's outside the conversation) 。</span>
+    </p>
+    <p style="color: #a8c8e4;font-size: 15px;line-height: 1.8;margin: 0 0 20px 0;text-align: justify;">
+      <span leaf="">这种模式通过将任务进度和依赖关系存储在磁盘上，解决了复杂项目中 Agent 记忆丢失和逻辑混乱的问题。</span>
+    </p>
+    <ul style="color: #a8c8e4;font-size: 15px;line-height: 1.9;margin: 0 0 20px 0;padding-left: 20px;" class="list-paddingleft-1">
+      <li style="margin-bottom: 8px;">
+        <section>
+          <span leaf="">所有的任务都以 JSON 文件的形式存储。这样即使对话历史因为太长而被压缩（如 s06 模式）或者 Agent 进程重启，项目的"全局进度"依然保存在磁盘上。Agent 随时可以通过 task_list 找回当前的工作状态。</span>
+        </section>
+      </li>
+      <li style="margin-bottom: 8px;">
+        <section>
+          <span leaf="">允许 Agent 规划复杂的、具有先后顺序的多步工作流，而不仅仅是简单的待办清单。</span>
+        </section>
+      </li>
+      <li>
+        <section>
+          <span leaf="">提供了专门的工具（如</span>
+          <code style="background: rgba(91, 164, 230, 0.15);padding: 2px 6px;border-radius: 4px;font-family: monospace;font-size: 13px;color: #5ba4e6;"><span leaf="">task_create</span></code>
+          <span leaf="">,</span>
+          <code style="background: rgba(91, 164, 230, 0.15);padding: 2px 6px;border-radius: 4px;font-family: monospace;font-size: 13px;color: #5ba4e6;"><span leaf="">task_update</span></code>
+          <span leaf="">）来强制 Agent 以结构化的方式思考任务。这迫使 Agent 在开始写代码前先进行"分解"和"建模"，将大问题拆解为互相关联的小任务，从而提高任务执行的成功率。</span>
+        </section>
+      </li>
+    </ul>
+    <p style="color: #a8c8e4;font-size: 15px;line-height: 1.8;margin: 0 0 16px 0;text-align: justify;">
+      <span leaf="">任务系统将"正在做什么"和"做到了哪里"从易失的对话上下文（Context）中抽离出来，放到了稳定的文件系统（Filesystem）中。</span>
+    </p>
+    <p style="color: #5ba4e6;font-size: 15px;font-weight: 600;margin: 0 0 30px 0;">
+      <span leaf="">核心价值：这使得 Agent 能够处理跨越多个对话阶段、涉及多个子任务的超大型项目。</span>
+    </p>
+    <section style="text-align: center;margin: 30px 0;">
+      <span leaf=""><img data-src="https://mmbiz.qlogo.cn/mmbiz_png/Mm8ujthoicm8w28ric1KWY2T6OfxN5XV0V52ku2WYGicCbsWg3KY6lTVlreE0Z2l3ibDjHaJkkwV07YaI4ibqv2BSS5hR00wUoLOjlRsXuvzMd4Q/0?wx_fmt=png&amp;from=appmsg" alt="S07" class="rich_pages wxw-img" data-ratio="0.5581395348837209" data-type="png" data-w="1376" style="max-width: 100%;height: auto;border-radius: 8px;box-shadow: 0 4px 16px rgba(0,0,0,0.3);" data-imgfileid="100000071" data-imgqrcoded="1" data-aistatus="1" src="https://mmbiz.qlogo.cn/mmbiz_png/Mm8ujthoicm8w28ric1KWY2T6OfxN5XV0V52ku2WYGicCbsWg3KY6lTVlreE0Z2l3ibDjHaJkkwV07YaI4ibqv2BSS5hR00wUoLOjlRsXuvzMd4Q/0?wx_fmt=png&amp;from=appmsg"></span>
+    </section>
+    <h3 style="color: #8cc8f0;font-size: 18px;font-weight: 600;margin: 32px 0 16px 0;">
+      <span style="display: inline-block;width: 28px;height: 28px;background: linear-gradient(135deg, #1a3a5c, #2a5490);border-radius: 6px;text-align: center;line-height: 28px;margin-right: 10px;font-size: 14px;color: #fff;"><span leaf="">S08</span></span>
+      <span leaf="">后台任务与并行执行 — 效率倍增</span>
+    </h3>
+    <p style="color: #a8c8e4;font-size: 15px;line-height: 1.8;margin: 0 0 16px 0;text-align: justify;">
+      <span leaf="">第八节引入了</span>
+      <strong style="color: #5ba4e6;"><span leaf="">后台任务</span></strong>
+      <span leaf="">机制，实现真正的并行处理。这个模式的核心理念是</span>
+      <strong style="color: #5ba4e6;"><span leaf="">"即发即忘，非阻塞执行"</span></strong>
+      <span leaf="">(Fire and forget -- the agent doesn't block while the command runs) 。</span>
+    </p>
+    <p style="color: #a8c8e4;font-size: 15px;line-height: 1.8;margin: 0 0 20px 0;text-align: justify;">
+      <span leaf="">该模式通过引入后台线程和通知队列，解决了 Agent 在执行耗时命令（如编译、测试、启动服务器）时必须等待而无法执行其他任务的问题。</span>
+    </p>
+    <p style="color: #a8c8e4;font-size: 15px;line-height: 1.8;margin: 0 0 30px 0;text-align: justify;">
+      <span leaf="">这种"即发即忘"的异步并行机制，极大地提升了 Agent 的工作效率，使其能够同时处理多个任务，更接近人类程序员的工作方式。</span>
+    </p>
+    <section style="text-align: center;margin: 30px 0;">
+      <span leaf=""><img data-src="https://mmbiz.qlogo.cn/sz_mmbiz_png/Mm8ujthoicm8I1cPEpH0jvI6hj3okxXc1qfSmxPMsxzlGFLZias9KE97JeibypJuKYHtQnZcaCp5UPTHNKGDFAKcR8SpLaXibJQCjkkGXXSXhMo/0?wx_fmt=png&amp;from=appmsg" alt="S08" class="rich_pages wxw-img" data-ratio="0.5576171875" data-type="png" data-w="1024" style="max-width: 100%;height: auto;border-radius: 8px;box-shadow: 0 4px 16px rgba(0,0,0,0.3);" data-imgfileid="100000072" data-imgqrcoded="1" data-aistatus="1" src="https://mmbiz.qlogo.cn/sz_mmbiz_png/Mm8ujthoicm8I1cPEpH0jvI6hj3okxXc1qfSmxPMsxzlGFLZias9KE97JeibypJuKYHtQnZcaCp5UPTHNKGDFAKcR8SpLaXibJQCjkkGXXSXhMo/0?wx_fmt=png&amp;from=appmsg"></span>
+    </section>
+    <h3 style="color: #8cc8f0;font-size: 18px;font-weight: 600;margin: 32px 0 16px 0;">
+      <span style="display: inline-block;width: 28px;height: 28px;background: linear-gradient(135deg, #1a3a5c, #2a5490);border-radius: 6px;text-align: center;line-height: 28px;margin-right: 10px;font-size: 14px;color: #fff;"><span leaf="">S09</span></span>
+      <span leaf="">多Agent协作 — 团队作战模式</span>
+    </h3>
+    <p style="color: #a8c8e4;font-size: 15px;line-height: 1.8;margin: 0 0 16px 0;text-align: justify;">
+      <span leaf="">第九节实现了真正的</span>
+      <strong style="color: #5ba4e6;"><span leaf="">多Agent协作</span></strong>
+      <span leaf="">，从单打独斗变成团队作战。</span>
+    </p>
+    <p style="color: #a8c8e4;font-size: 15px;line-height: 1.8;margin: 0 0 20px 0;text-align: justify;">
+      <span leaf="">这个模式的核心理念是</span>
+      <strong style="color: #5ba4e6;"><span leaf="">"可以互相交谈的持久化团队成员"</span></strong>
+      <span leaf="">(Teammates that can talk to each other) 。它将 Agent 的概念从"临时工"升级为"全职员工"，构建了一个可以并行协作、异步通信的 Agent 团队。</span>
+    </p>
+    <p style="color: #e8f4fc;font-size: 15px;line-height: 1.8;margin: 0 0 12px 0;">
+      <strong><span leaf="">与 Subagent (s04) 模式的根本区别：</span></strong>
+    </p>
+    <ul style="color: #a8c8e4;font-size: 15px;line-height: 1.9;margin: 0 0 20px 0;padding-left: 20px;" class="list-paddingleft-1">
+      <li style="margin-bottom: 8px;">
+        <strong><span leaf="">Subagent (s04)</span></strong>
+        <section>
+          <span leaf="">：一次性的，任务完成后即被销毁，像一个临时顾问。</span>
+        </section>
+      </li>
+      <li>
+        <strong><span leaf="">Teammate (s09)</span></strong>
+        <section>
+          <span leaf="">：持久化的，有自己的名字、角色和状态，可以长期存在，在空闲和工作状态间切换，像一个常驻团队成员。</span>
+        </section>
+      </li>
+    </ul>
+    <p style="color: #e8f4fc;font-size: 15px;line-height: 1.8;margin: 0 0 12px 0;">
+      <strong><span leaf="">核心机制解析：</span></strong>
+    </p>
+    <ul style="color: #a8c8e4;font-size: 15px;line-height: 1.9;margin: 0 0 30px 0;padding-left: 20px;" class="list-paddingleft-1">
+      <li style="margin-bottom: 8px;">
+        <section>
+          <span leaf="">团队的结构（成员、角色、状态）被持久化存储在磁盘上。即使程序重启，团队的"组织架构"依然存在。Agent 不再是孤立的，而是属于一个有明确身份和状态的集体。</span>
+        </section>
+      </li>
+      <li style="margin-bottom: 8px;">
+        <strong><span leaf="">异步消息收件箱</span></strong>
+        <section>
+          <span leaf="">(Asynchronous Message Inbox) 这是该模式最关键的创新。通过 MessageBus，每个 Agent 都在</span>
+          <code style="background: rgba(91, 164, 230, 0.15);padding: 2px 6px;border-radius: 4px;font-family: monospace;font-size: 13px;color: #5ba4e6;"><span leaf="">.team/inbox/</span></code>
+          <span leaf="">目录下拥有一个专属的</span>
+          <code style="background: rgba(91, 164, 230, 0.15);padding: 2px 6px;border-radius: 4px;font-family: monospace;font-size: 13px;color: #5ba4e6;"><span leaf="">.jsonl</span></code>
+          <span leaf="">文件作为其收件箱。通信是</span>
+          <strong><span leaf="">异步</span></strong>
+          <span leaf="">和</span>
+          <strong><span leaf="">解耦</span></strong>
+          <span leaf="">的，这完美模拟了真实世界中的邮件或即时通讯系统，允许 Agent 之间进行非阻塞的、可追溯的交流。</span>
+        </section>
+      </li>
+      <li>
+        <section>
+          <span leaf="">每个创建的 Agent 都在一个独立的后台线程中运行自己的 agent_loop。这使得多个 Agent 可以</span>
+          <strong><span leaf="">真正地并行工作</span></strong>
+          <span leaf="">。例如，一个"前端工程师" Agent 可以在实现 UI 的同时，另一个"后端工程师" Agent 正在编写 API，而"项目经理" Agent 则在规划下一步任务。</span>
+        </section>
+      </li>
+    </ul>
+    <p style="color: #5ba4e6;font-size: 15px;font-weight: 600;margin: 0 0 30px 0;">
+      <span leaf="">agent_teams 模式构建了一个微型的、分布式的 Agent "公司"。</span>
+    </p>
+    <section style="text-align: center;margin: 30px 0;">
+      <span leaf=""><img data-src="https://mmbiz.qlogo.cn/sz_mmbiz_png/Mm8ujthoicmicy6wicdg8cVV2wN6jzf4kK43z3IQicdcic19qqXdH0DvzmrBIEJ1PKwymEtgNKic7L2eiafppLhfLQno06PXjS0LengGnp1uJ0e91o/0?wx_fmt=png&amp;from=appmsg" alt="S09" class="rich_pages wxw-img" data-ratio="0.5577342047930284" data-type="png" data-w="1377" style="max-width: 100%;height: auto;border-radius: 8px;box-shadow: 0 4px 16px rgba(0,0,0,0.3);" data-imgfileid="100000073" data-imgqrcoded="1" data-aistatus="1" src="https://mmbiz.qlogo.cn/sz_mmbiz_png/Mm8ujthoicmicy6wicdg8cVV2wN6jzf4kK43z3IQicdcic19qqXdH0DvzmrBIEJ1PKwymEtgNKic7L2eiafppLhfLQno06PXjS0LengGnp1uJ0e91o/0?wx_fmt=png&amp;from=appmsg"></span>
+    </section>
+    <h3 style="color: #8cc8f0;font-size: 18px;font-weight: 600;margin: 32px 0 16px 0;">
+      <span style="display: inline-block;width: 28px;height: 28px;background: linear-gradient(135deg, #1a3a5c, #2a5490);border-radius: 6px;text-align: center;line-height: 28px;margin-right: 10px;font-size: 14px;color: #fff;"><span leaf="">S10</span></span>
+      <span leaf="">Plan模式 — 用户审批机制</span>
+    </h3>
+    <p style="color: #a8c8e4;font-size: 15px;line-height: 1.8;margin: 0 0 16px 0;text-align: justify;">
+      <span leaf="">第十节引入了</span>
+      <strong style="color: #5ba4e6;"><span leaf="">Plan模式</span></strong>
+      <span leaf="">，让用户能够审核和批准 Agent 的计划。这个模式的核心理念是</span>
+      <strong style="color: #5ba4e6;"><span leaf="">"为团队协作建立结构化的沟通协议"</span></strong>
+      <span leaf="">(Protocols for structured team collaboration) 。</span>
+    </p>
+    <p style="color: #a8c8e4;font-size: 15px;line-height: 1.8;margin: 0 0 30px 0;text-align: justify;">
+      <span leaf="">它在 s09 的"自由交谈"基础上，引入了一套正式的、基于状态机的"沟通协议"，使得 Agent 团队能够执行更复杂、需要共识和协调的动作，比如"共同制定计划"和"安全关闭团队"。</span>
+    </p>
+    <section style="text-align: center;margin: 30px 0;">
+      <span leaf=""><img data-src="https://mmbiz.qlogo.cn/mmbiz_png/Mm8ujthoicmib4xlCAFVn8ZUjsYrU5kBtY3MBw9Xo2qIdicNZrQiaMvg6A9ay9h3B4lAb03Zc3ibvHmibP9GoUZHtZcDbJ9luqPuVvF3R5CCthWEM/0?wx_fmt=png&amp;from=appmsg" alt="S10" class="rich_pages wxw-img" data-ratio="0.5576171875" data-type="png" data-w="1024" style="max-width: 100%;height: auto;border-radius: 8px;box-shadow: 0 4px 16px rgba(0,0,0,0.3);" data-imgfileid="100000070" data-imgqrcoded="1" data-aistatus="1" src="https://mmbiz.qlogo.cn/mmbiz_png/Mm8ujthoicmib4xlCAFVn8ZUjsYrU5kBtY3MBw9Xo2qIdicNZrQiaMvg6A9ay9h3B4lAb03Zc3ibvHmibP9GoUZHtZcDbJ9luqPuVvF3R5CCthWEM/0?wx_fmt=png&amp;from=appmsg"></span>
+    </section>
+    <h3 style="color: #8cc8f0;font-size: 18px;font-weight: 600;margin: 32px 0 16px 0;">
+      <span style="display: inline-block;width: 28px;height: 28px;background: linear-gradient(135deg, #1a3a5c, #2a5490);border-radius: 6px;text-align: center;line-height: 28px;margin-right: 10px;font-size: 14px;color: #fff;"><span leaf="">S11</span></span>
+      <span leaf="">轮询与任务看板 — 自主运行模式</span>
+    </h3>
+    <p style="color: #a8c8e4;font-size: 15px;line-height: 1.8;margin: 0 0 16px 0;text-align: justify;">
+      <span leaf="">第十一节实现了 Agent 的</span>
+      <strong style="color: #5ba4e6;"><span leaf="">自主运行能力</span></strong>
+      <span leaf="">。这个模式的核心理念是</span>
+      <strong style="color: #5ba4e6;"><span leaf="">"自主寻源与身份持久化"</span></strong>
+      <span leaf="">(The agent finds work itself &amp; Identity re-injection) 。它在 s10 团队协议的基础上，进一步提升了 Agent 的</span>
+      <strong><span leaf="">主动性</span></strong>
+      <span leaf="">和</span>
+      <strong><span leaf="">健壮性</span></strong>
+      <span leaf="">，使其从"听令行事"转变为"主动觅食"。</span>
+    </p>
+    <p style="color: #e8f4fc;font-size: 15px;line-height: 1.8;margin: 0 0 12px 0;">
+      <strong><span leaf="">核心机制解析：</span></strong>
+    </p>
+    <ul style="color: #a8c8e4;font-size: 15px;line-height: 1.9;margin: 0 0 20px 0;padding-left: 20px;" class="list-paddingleft-1">
+      <li style="margin-bottom: 8px;">
+        <section>
+          <span leaf="">当一个 Teammate 完成手头任务进入 idle 状态时，它不会直接退出。它会启动一个</span>
+          <strong><span leaf="">轮询机制</span></strong>
+          <span leaf="">，每隔 5 秒检查一次收件箱和任务板。Agent 变成了"自驱动"的。Lead Agent 不需要给每个成员分配每一个细小任务，成员会根据任务板上的待办事项主动分担压力。</span>
+        </section>
+      </li>
+      <li>
+        <section>
+          <span leaf="">在长对话中，为了节省 Token 可能会进行上下文压缩（如 s06 模式）。压缩后，Agent 可能会"忘记"自己是谁、属于哪个团队、担任什么角色。该模式确保 Agent 在长期的、跨越多次压缩的工作流中，始终保持清晰的</span>
+          <strong><span leaf="">自我认知</span></strong>
+          <span leaf="">和</span>
+          <strong><span leaf="">团队归属感</span></strong>
+          <span leaf="">。</span>
+        </section>
+      </li>
+    </ul>
+    <p style="color: #a8c8e4;font-size: 15px;line-height: 1.8;margin: 0 0 20px 0;text-align: justify;">
+      <span leaf="">如果说 s09 和 s10 构建了一个"听指挥的团队"，那么 s11 则是构建了一个</span>
+      <strong style="color: #5ba4e6;"><span leaf="">"自组织、自愈合的精英小队"</span></strong>
+      <span leaf="">：</span>
+    </p>
+    <ul style="color: #a8c8e4;font-size: 15px;line-height: 1.9;margin: 0 0 30px 0;padding-left: 20px;" class="list-paddingleft-1">
+      <li style="margin-bottom: 8px;">
+        <strong><span leaf="">自组织</span></strong>
+        <section>
+          <span leaf="">：成员会盯着任务板（</span>
+          <code style="background: rgba(91, 164, 230, 0.15);padding: 2px 6px;border-radius: 4px;font-family: monospace;font-size: 13px;color: #5ba4e6;"><span leaf="">.tasks/</span></code>
+          <span leaf="">），发现活儿就干，不需要时刻被催促。</span>
+        </section>
+      </li>
+      <li>
+        <strong><span leaf="">自愈合</span></strong>
+        <section>
+          <span leaf="">：通过身份重注入，即便记忆被压缩或"重置"，Agent 也能瞬间找回自己的定位。</span>
+        </section>
+      </li>
+    </ul>
+    <p style="color: #a8c8e4;font-size: 15px;line-height: 1.8;margin: 0 0 30px 0;text-align: justify;">
+      <span leaf="">这种模式下的 Agent 已经非常接近于一个</span>
+      <strong style="color: #5ba4e6;"><span leaf="">具备主观能动性</span></strong>
+      <span leaf="">的数字员工，能够独立、稳定地在复杂的工程环境中生存并产出价值。</span>
+    </p>
+    <section style="text-align: center;margin: 30px 0;">
+      <span leaf=""><img data-src="https://mmbiz.qlogo.cn/mmbiz_png/Mm8ujthoicmicshic2wbRe0ibBMCpb4dyjCx3jVpfFbkict40xzCYAGWO73MbbmOUNpPL7Rw9sydUvm6j9GkfaMiadHkKNQH5XicqT58IFgZyib1ba8/0?wx_fmt=png&amp;from=appmsg" alt="S11" class="rich_pages wxw-img" data-ratio="0.5576171875" data-type="png" data-w="1024" style="max-width: 100%;height: auto;border-radius: 8px;box-shadow: 0 4px 16px rgba(0,0,0,0.3);" data-imgfileid="100000069" data-imgqrcoded="1" data-aistatus="1" src="https://mmbiz.qlogo.cn/mmbiz_png/Mm8ujthoicmicshic2wbRe0ibBMCpb4dyjCx3jVpfFbkict40xzCYAGWO73MbbmOUNpPL7Rw9sydUvm6j9GkfaMiadHkKNQH5XicqT58IFgZyib1ba8/0?wx_fmt=png&amp;from=appmsg"></span>
+    </section>
+    <h3 style="color: #8cc8f0;font-size: 18px;font-weight: 600;margin: 32px 0 16px 0;">
+      <span style="display: inline-block;width: 28px;height: 28px;background: linear-gradient(135deg, #1a3a5c, #2a5490);border-radius: 6px;text-align: center;line-height: 28px;margin-right: 10px;font-size: 14px;color: #fff;"><span leaf="">S12</span></span>
+      <span leaf="">Worktree绑定 — 完整工程化</span>
+    </h3>
+    <p style="color: #a8c8e4;font-size: 15px;line-height: 1.8;margin: 0 0 16px 0;text-align: justify;">
+      <span leaf="">第十二节是最终形态，引入了</span>
+      <strong style="color: #5ba4e6;"><span leaf="">Worktree绑定</span></strong>
+      <span leaf="">机制。这个模式的核心理念是</span>
+      <strong style="color: #5ba4e6;"><span leaf="">"目录级隔离与并行任务执行"</span></strong>
+      <span leaf="">(Isolate by directory, coordinate by task ID) 。</span>
+    </p>
+    <p style="color: #a8c8e4;font-size: 15px;line-height: 1.8;margin: 0 0 20px 0;text-align: justify;">
+      <span leaf="">它通过结合</span>
+      <strong><span leaf="">任务系统</span></strong>
+      <span leaf="">(Tasks) 和</span>
+      <strong><span leaf="">Git 工作树</span></strong>
+      <span leaf="">(Worktrees)，解决了在同一个代码库中同时处理多个冲突任务或进行高风险实验时的干扰问题。</span>
+    </p>
+    <p style="color: #a8c8e4;font-size: 15px;line-height: 1.8;margin: 0 0 20px 0;text-align: justify;">
+      <span leaf="">如果说之前的模式（如 s07）是给 Agent 增加了"任务列表"，那么 s12 就是给 Agent 增加了</span>
+      <strong style="color: #5ba4e6;"><span leaf="">"多个并行的实验室"</span></strong>
+      <span leaf="">：</span>
+    </p>
+    <ul style="color: #a8c8e4;font-size: 15px;line-height: 1.9;margin: 0 0 20px 0;padding-left: 20px;" class="list-paddingleft-1">
+      <li style="margin-bottom: 8px;">
+        <strong><span leaf="">任务系统</span></strong>
+        <section>
+          <span leaf="">是实验手册，记录了实验目的和进度。</span>
+        </section>
+      </li>
+      <li style="margin-bottom: 8px;">
+        <strong><span leaf="">Worktree</span></strong>
+        <section>
+          <span leaf="">是一个个独立的无菌实验室。</span>
+        </section>
+      </li>
+      <li>
+        <strong><span leaf="">事件日志</span></strong>
+        <section>
+          <span leaf="">是实验记录仪。</span>
+        </section>
+      </li>
+    </ul>
+    <p style="color: #a8c8e4;font-size: 15px;line-height: 1.8;margin: 0 0 16px 0;text-align: justify;">
+      <span leaf="">这种模式使得 Agent 能够处理极具挑战性的、多线程的工程任务，例如：</span>
+      <strong style="color: #5ba4e6;"><span leaf="">一边修复紧急 Bug，一边进行底层的架构重构</span></strong>
+      <span leaf="">，而这两者在代码上完全物理隔离，确保了整个系统的稳定性和开发效率。</span>
+    </p>
+    <p style="color: #e8f4fc;font-size: 15px;line-height: 1.8;margin: 0 0 12px 0;">
+      <span leaf="">这时的 Agent 已经是一个成熟的"虚拟工程师"，能够：</span>
+    </p>
+    <ul style="color: #a8c8e4;font-size: 15px;line-height: 1.9;margin: 0 0 30px 0;padding-left: 20px;" class="list-paddingleft-1">
+      <li style="margin-bottom: 8px;">
+        <section>
+          <span leaf="">自主认领和规划任务</span>
+        </section>
+      </li>
+      <li style="margin-bottom: 8px;">
+        <section>
+          <span leaf="">在隔离环境中安全执行</span>
+        </section>
+      </li>
+      <li style="margin-bottom: 8px;">
+        <section>
+          <span leaf="">与团队协作</span>
+        </section>
+      </li>
+      <li style="margin-bottom: 8px;">
+        <section>
+          <span leaf="">接受人类审核</span>
+        </section>
+      </li>
+      <li>
+        <section>
+          <span leaf="">持久化状态，支持恢复</span>
+        </section>
+      </li>
+    </ul>
+    <section style="text-align: center;margin: 30px 0;">
+      <span leaf=""><img data-src="https://mmbiz.qlogo.cn/sz_mmbiz_png/Mm8ujthoicmib6LfSZ143G7oSQJecowkQh0VmibMZqWZJcqWLFTLLhbmYqltVemExwmkkSjP6hOFu3enInIKLlKm4P0xU7KYvEm36C6J0n92G4/0?wx_fmt=png&amp;from=appmsg" alt="S12" class="rich_pages wxw-img" data-ratio="0.5576171875" data-type="png" data-w="1024" style="max-width: 100%;height: auto;border-radius: 8px;box-shadow: 0 4px 16px rgba(0,0,0,0.3);" data-imgfileid="100000074" data-imgqrcoded="1" data-aistatus="1" src="https://mmbiz.qlogo.cn/sz_mmbiz_png/Mm8ujthoicmib6LfSZ143G7oSQJecowkQh0VmibMZqWZJcqWLFTLLhbmYqltVemExwmkkSjP6hOFu3enInIKLlKm4P0xU7KYvEm36C6J0n92G4/0?wx_fmt=png&amp;from=appmsg"></span>
+    </section>
+    <h2 style="color: #5ba4e6;font-size: 22px;font-weight: 600;margin: 40px 0 24px 0;padding-bottom: 12px;border-bottom: 1px solid rgba(91, 164, 230, 0.3);text-shadow: 0 2px 6px rgba(66, 160, 206, 0.2);">
+      <span leaf="">总结</span>
+    </h2>
+    <p style="color: #a8c8e4;font-size: 16px;line-height: 1.8;margin: 0 0 30px 0;text-align: justify;">
+      <span leaf="">这个项目通过12节课程，循序渐进地展示了如何从零构建一个生产级的 AI 编程 Agent：</span>
+    </p>
+    <table style="width: 100%;border-collapse: collapse;margin: 0 0 30px 0;font-size: 14px;color: #e8f4fc;background: rgba(0, 0, 0, 0.2);border-radius: 8px;">
+      <thead>
+        <tr style="background: #1a3a5c;">
+          <th style="padding: 14px 10px;text-align: left;color: #5ba4e6;font-weight: 700;border-bottom: 2px solid #5ba4e6;">
+            <section>
+              <span leaf="">阶段</span>
+            </section>
+          </th>
+          <th style="padding: 14px 10px;text-align: left;color: #5ba4e6;font-weight: 700;border-bottom: 2px solid #5ba4e6;">
+            <section>
+              <span leaf="">章节</span>
+            </section>
+          </th>
+          <th style="padding: 14px 10px;text-align: left;color: #5ba4e6;font-weight: 700;border-bottom: 2px solid #5ba4e6;">
+            <section>
+              <span leaf="">核心能力</span>
+            </section>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="background: rgba(255, 255, 255, 0.05);">
+          <td style="padding: 12px 10px;border-bottom: 1px solid rgba(91, 164, 230, 0.15);">
+            <section>
+              <span leaf="">基础</span>
+            </section>
+          </td>
+          <td style="padding: 12px 10px;border-bottom: 1px solid rgba(91, 164, 230, 0.15);">
+            <section>
+              <span leaf="">S01-S02</span>
+            </section>
+          </td>
+          <td style="padding: 12px 10px;border-bottom: 1px solid rgba(91, 164, 230, 0.15);">
+            <section>
+              <span leaf="">Agent循环 + 安全机制</span>
+            </section>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 12px 10px;border-bottom: 1px solid rgba(91, 164, 230, 0.15);">
+            <section>
+              <span leaf="">规划</span>
+            </section>
+          </td>
+          <td style="padding: 12px 10px;border-bottom: 1px solid rgba(91, 164, 230, 0.15);">
+            <section>
+              <span leaf="">S03-S04</span>
+            </section>
+          </td>
+          <td style="padding: 12px 10px;border-bottom: 1px solid rgba(91, 164, 230, 0.15);">
+            <section>
+              <span leaf="">任务管理 + 子Agent</span>
+            </section>
+          </td>
+        </tr>
+        <tr style="background: rgba(255, 255, 255, 0.05);">
+          <td style="padding: 12px 10px;border-bottom: 1px solid rgba(91, 164, 230, 0.15);">
+            <section>
+              <span leaf="">扩展</span>
+            </section>
+          </td>
+          <td style="padding: 12px 10px;border-bottom: 1px solid rgba(91, 164, 230, 0.15);">
+            <section>
+              <span leaf="">S05-S06</span>
+            </section>
+          </td>
+          <td style="padding: 12px 10px;border-bottom: 1px solid rgba(91, 164, 230, 0.15);">
+            <section>
+              <span leaf="">Skills系统 + 上下文压缩</span>
+            </section>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 12px 10px;border-bottom: 1px solid rgba(91, 164, 230, 0.15);">
+            <section>
+              <span leaf="">协作</span>
+            </section>
+          </td>
+          <td style="padding: 12px 10px;border-bottom: 1px solid rgba(91, 164, 230, 0.15);">
+            <section>
+              <span leaf="">S07-S09</span>
+            </section>
+          </td>
+          <td style="padding: 12px 10px;border-bottom: 1px solid rgba(91, 164, 230, 0.15);">
+            <section>
+              <span leaf="">任务图 + 后台执行 + 多Agent</span>
+            </section>
+          </td>
+        </tr>
+        <tr style="background: rgba(255, 255, 255, 0.05);">
+          <td style="padding: 12px 10px;">
+            <section>
+              <span leaf="">自主</span>
+            </section>
+          </td>
+          <td style="padding: 12px 10px;">
+            <section>
+              <span leaf="">S10-S12</span>
+            </section>
+          </td>
+          <td style="padding: 12px 10px;">
+            <section>
+              <span leaf="">Plan模式 + 轮询 + Worktree</span>
+            </section>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="color: #a8c8e4;font-size: 16px;line-height: 1.8;margin: 0 0 30px 0;text-align: justify;">
+      <span leaf="">如果你想深入理解 AI Agent 的工作原理，或者想自己实现一个编程助手，这个项目是最好的学习材料。</span>
+    </p>
+    <section style="background: linear-gradient(135deg, rgba(91, 164, 230, 0.15), rgba(66, 160, 206, 0.1));border-radius: 12px;padding: 20px;text-align: center;margin: 30px 0;">
+      <p style="color: #e8f4fc;font-size: 16px;font-weight: 600;margin: 0 0 12px 0;">
+        <span leaf="">项目地址</span>
+      </p>
+      <p style="color: #5ba4e6;font-size: 15px;margin: 0;word-break: break-all;">
+        <span leaf=""><a class="normal_text_link" target="_blank" style="color: rgb(91, 164, 230);text-decoration: none;" href="https://github.com/shareAI-lab/learn-claude-code" textvalue="" linktype="text" data-linktype="2">https://github.com/shareAI-lab/learn-claude-code</a></span>
+      </p>
+    </section>
+  </section>
+</section>
+<p style="display: none;">
+  <mp-style-type data-value="3">
+  </mp-style-type>
+</p>
